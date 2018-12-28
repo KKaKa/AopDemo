@@ -92,7 +92,7 @@ public class CheckLoginAspectJ {
 
     @Around("pointCut()")
     public Object checkLogin(ProceedingJoinPoint joinPoint) throws Throwable{
-        ...
+        ...判断是否登录
         return joinPoint.proceed();
     }
 
