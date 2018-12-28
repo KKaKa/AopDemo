@@ -6,12 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @Description:
+ * @Description: Customer Pointcut
  * @Author: laizexin
  * @Time: 2018/12/27
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckLogin {
-    boolean isLogin();
+    String param();
 }

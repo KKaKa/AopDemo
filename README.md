@@ -70,7 +70,7 @@ variants.all { variant ->
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckLogin {
-    boolean isLogin();
+    String param();
 }
 ```
 
@@ -114,5 +114,20 @@ public class CheckLoginAspectJ {
 MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 Method method = signature.getMethod();
 CheckLogin checkLogin = method.getAnnotation(CheckLogin.class);
-boolean isLogin = checkLogin.isLogin();
+String content = checkLogin.param();
+```
+
+## 获取方法参数
+```
+for(Object obj : joinPoint.getArgs()){
+	....
+}
+```
+
+## 使用
+```
+@CheckLogin(param = "content")
+private void toNextActivity(Context context,boolean isLogin) {
+    Log.i("CheckLoginAspectJ","toNextActivity");
+}
 ```

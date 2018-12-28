@@ -19,7 +19,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import java.lang.reflect.Method;
 
 /**
- * @Description:
+ * @Description:Customer AspectJ
  * @Author: laizexin
  * @Time: 2018/12/27
  */
@@ -42,12 +42,24 @@ public class CheckLoginAspectJ {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         CheckLogin checkLogin = method.getAnnotation(CheckLogin.class);
-        boolean isLogin = checkLogin.isLogin();
-        Context context = AopUtil.getInstance().getContext();
+        String content = checkLogin.param();
 
-        if(isLogin){
+        Context context = null;
+        boolean isLogin = false;
+
+        for(Object obj : joinPoint.getArgs()){
+            if(obj instanceof Context){
+                context = (Context) obj;
+            }
+
+            if(obj instanceof Boolean){
+                isLogin = (boolean) obj;
+            }
+        }
+
+        if(isLogin && context != null){
             Main2Activity.toMain2Activity(context);
-        }else{
+        }else if(!isLogin && context != null){
             LoginActivity.toLoginActivity(context);
         }
 
