@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.laizexin.sdj.aopdemo.aspectj.CheckFinger;
 import com.laizexin.sdj.aopdemo.aspectj.CheckLogin;
 
 public class MainActivity extends AppCompatActivity{
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity{
         Log.i("CheckLoginAspectJ","toNextActivity");
     }
 
+    @CheckFinger
+    private void checkFinger(Context context){
+        //doSomething
+    }
+
     private void initView() {
         Button mBtn = findViewById(R.id.btn);
         mBtn.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +47,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isLogin = isChecked;
+            }
+        });
+
+        Button mBtnFinger = findViewById(R.id.btn_finger);
+        mBtnFinger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkFinger(MainActivity.this);
             }
         });
     }
