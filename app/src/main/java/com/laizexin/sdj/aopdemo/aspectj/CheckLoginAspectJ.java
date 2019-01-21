@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  */
 @Aspect
 public class CheckLoginAspectJ {
-    private static final String TAG = "CheckLoginAspectJ";
+    private static final String TAG = "AspectJ.CheckLogin";
 
     @Pointcut("execution(@com.laizexin.sdj.aopdemo.aspectj.CheckLogin * *(..))")
     public void pointCut(){
@@ -39,6 +39,7 @@ public class CheckLoginAspectJ {
 
     @Around("pointCut()")
     public Object checkLogin(ProceedingJoinPoint joinPoint) throws Throwable{
+        Log.i(TAG,"checkLogin");
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         CheckLogin checkLogin = method.getAnnotation(CheckLogin.class);
@@ -71,7 +72,7 @@ public class CheckLoginAspectJ {
         Log.i(TAG,"CheckLoginAspectJ.after");
     }
 
-    @AfterThrowing(value = "pointcut()", throwing = "ex")
+    @AfterThrowing(value = "pointCut()", throwing = "ex")
     public void afterThrowing(Throwable ex) {
         Log.i(TAG,"CheckLoginAspectJ.afterThrowing.ex = " + ex.getMessage());
     }
